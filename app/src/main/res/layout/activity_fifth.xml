@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+       layout="@layout/appbarfifth" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarfifth">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--Mẹo ôn tập lý thuyết GPLX-->
+            <TextView
+                style="@style/Title_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/meo_on_tap"/>
+
+            <!--Cấp phép-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cap_phep"/>
+
+            <TextView
+                android:id="@+id/cap_phep"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Nồng độ cồn -->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nong_do_con"/>
+
+            <TextView
+                android:id="@+id/nong_do_con"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Khoảng cách an toàn tối thiểu-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/khoang_cach"/>
+
+            <TextView
+                android:id="@+id/khoang_cach"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Hỏi về tuổi (T)-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hoi_ve_tuoi"/>
+
+            <TextView
+                android:id="@+id/hoi_ve_tuoi"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Trên đường cao tốc-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tren_duong_cao_toc"/>
+
+            <TextView
+                android:id="@+id/tren_duong_cao_toc"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Tại nơi giao nhau không có tín hiệu đèn-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/giaonhau"/>
+
+            <TextView
+                android:id="@+id/giaonhau"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Niên hạn sử dụng (tính từ năm sx)-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nien_han"/>
+
+            <TextView
+                android:id="@+id/nien_han"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Biển báo cấm-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bien_bao_cam"/>
+
+            <TextView
+                android:id="@+id/bien_bao_cam"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Nhất chớm, nhì ưu, tam đường, tứ hướng-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nhat_chom"/>
+
+            <TextView
+                android:id="@+id/nhat_chom"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Thứ tự ưu tiên với xe ưu tiên: Hỏa-Sự-An-Thương-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/thu_tu_uu_tien"/>
+
+            <TextView
+                android:id="@+id/thu_tu_uu_tien"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Các hạng GPLX-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hang_gplx"/>
+
+            <TextView
+                android:id="@+id/hang_gplx"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Phân nhóm biển báo hiệu: bao gồm-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phan_nhom"/>
+
+            <TextView
+                android:id="@+id/phan_nhom"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Tốc độ tối đa TRONG khu vực đông dân cư-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/toc_do_toi_da_trong"/>
+
+            <TextView
+                android:id="@+id/toc_do_toi_da_trong"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Tốc độ tối đa NGOÀI khu vực đông dân cư (trừ đường cao tốc)-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/toc_do_toi_da_ngoai"/>
+
+            <TextView
+                android:id="@+id/catogery_toc_do_ngoai_1"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/toc_do_toi_da_ngoai_1"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/catogery_toc_do_ngoai_2"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/toc_do_toi_da_ngoai_2"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Tăng giảm số-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tang_giam_so"/>
+
+            <TextView
+                android:id="@+id/tang_giam_so"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Phương tiện giao thông đường bộ-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phuong_tien"/>
+
+            <TextView
+                android:id="@+id/phuong_tien"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Xe máy chuyên dùng-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/xe_may_chuyen_dung"/>
+
+            <TextView
+                android:id="@+id/xe_may_chuyen_dung"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Nghiệp vụ vận tải-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nghiep_vu"/>
+
+            <TextView
+                android:id="@+id/nghiep_vu"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Kỹ thuật lái xe-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ky_thuat"/>
+
+            <TextView
+                android:id="@+id/ky_thuat"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Cấu tạo và sữa chữa-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ct_sc"/>
+
+            <TextView
+                android:id="@+id/ct_sc"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!--Các quy tắc sa hình khác-->
+            <TextView
+                style="@style/Catogery_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quy_tac"/>
+
+            <TextView
+                android:id="@+id/quy_tac"
+                style="@style/Content_MeoThi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
