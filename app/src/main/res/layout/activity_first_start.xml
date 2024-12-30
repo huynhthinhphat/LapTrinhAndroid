@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activitifirststart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        layout="@layout/appbar_first"
+        android:id="@+id/toolbar"/>
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Text_Ques_Ans"
+        android:layout_below="@+id/toolbar"
+        />
+
+    <TextView
+        android:id="@+id/answerA"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Text_Ques_Ans"
+        android:layout_below="@+id/question"
+        />
+
+    <TextView
+        android:id="@+id/answerB"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/answerA"
+        style="@style/Text_Ques_Ans"
+        android:layout_below="@+id/answerA"
+        />
+
+    <TextView
+        android:id="@+id/answerC"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/answerB"
+        style="@style/Text_Ques_Ans"
+        android:layout_below="@+id/answerB"
+        />
+
+    <TextView
+        android:id="@+id/answerD"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/answerC"
+        style="@style/Text_Ques_Ans"
+        android:layout_below="@+id/answerC"
+        />
+
+    <TextView
+        android:id="@+id/explanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/answerD"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/gello"
+        style="@style/Text_Ques_Ans"
+        android:visibility="gone"
+        android:layout_below="@+id/answerD"
+        />
+
+    <include
+        android:id="@+id/toolbar_bottom"
+        layout="@layout/appbar_first_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rv_question_list"
+       />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_question_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/background_box"
+        android:scrollbars="vertical"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

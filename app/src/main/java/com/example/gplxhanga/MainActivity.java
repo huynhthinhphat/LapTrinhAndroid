@@ -1,6 +1,11 @@
 package com.example.gplxhanga;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,12 +37,13 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Button btnLyThuyet;
     private Button btnMeoThi;
+    private Button btnBienBao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -49,11 +55,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
+
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         btnMeoThi = findViewById(R.id.btn_meo_thi);
         btnLyThuyet = findViewById(R.id.btn_ly_thuyet);
+        btnBienBao = findViewById(R.id.btn_bien_bao);
     }
 
     private void setUpBtn(){
@@ -72,9 +81,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnBienBao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    private void btnLyThuyetr_CallApi(){
+    /*private void btnLyThuyetr_CallApi(){
         ApiService.apiService.findALlQuestion().enqueue(new Callback<List<CauHoi>>() {
             @Override
             public void onResponse(@NonNull Call<List<CauHoi>> call, @NonNull Response<List<CauHoi>> response) {
@@ -90,5 +107,5 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Sửa lại địa chỉ ip tao ghi trong ApiService đi", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 }

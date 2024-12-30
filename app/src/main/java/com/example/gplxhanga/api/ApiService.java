@@ -1,6 +1,8 @@
 package com.example.gplxhanga.api;
 
+import com.example.gplxhanga.entities.BienBaoGiaoThong;
 import com.example.gplxhanga.entities.CauHoi;
+import com.example.gplxhanga.entities.ItemQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -26,5 +28,8 @@ public interface ApiService {
             .create(ApiService.class);
 
     @GET("cauhoi")
-    Call<List<CauHoi>> findALlQuestion();
+    Call<List<ItemQuestion>> findALlQuestion();
+
+    @GET("traffic_signs")
+    Call<List<BienBaoGiaoThong>> findALlTrafficSigns();
 }

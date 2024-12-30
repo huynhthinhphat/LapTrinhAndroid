@@ -31,4 +31,18 @@
     <string name="ky_thuat">Kỹ thuật lái xe</string>
     <string name="ct_sc">Cấu tạo và sữa chữa</string>
     <string name="quy_tac">Các quy tắc sa hình khác</string>
+    <string name="bien_hieu_lenh">Biển hiệu lệnh</string>
+    <string name="bien_chi_dan">Biển chỉ dẫn</string>
+    <string name="todo">TODO</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tab1_fragment">Biển báo cấm</string>
+    <string name="tab2_fragment">Biển hiệu lệnh</string>
+    <string name="tab3_fragment">Biển chỉ dẫn</string>
+    <string name="tab4_fragment">Biển báo nguy hiểm và cảnh báo</string>
+    <string name="tab5_fragment">Biển phụ</string>
+    <string name="bien_bao_giao_thong">Biển báo giao thông</string>
+    <string name="image">Image</string>
+    <string name="text">Text</string>
+    <string name="gello">gello</string>
 </resources>

@@ -7,4 +7,5 @@
     <color name="red">#6b3b43</color>
     <color name="yellow">#FFFF00</color>
     <color name="click">#3C3C49</color>
+    <color name="btn_pressed">#1aafcf</color>
 </resources>
