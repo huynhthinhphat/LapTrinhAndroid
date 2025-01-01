@@ -1,0 +1,82 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:background="@drawable/rounded_button"
+    android:layout_marginBottom="15dp">
+
+    <ImageView
+        android:id="@+id/item_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="TODO" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="12dp">
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/item_description_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description_1"
+                android:textSize="14sp"
+                android:textColor="#666"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/item_description_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description_2"
+                android:textSize="14sp"
+                android:textColor="#896844" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+        <ProgressBar
+                android:id="@+id/item_progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="1.4in"
+                android:layout_height="7dp"
+                android:progress="0"
+                android:max="100"
+                android:indeterminate="false" />
+
+            <TextView
+                android:id="@+id/item_quantity"
+                android:layout_width="0.4in"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Quantity question"
+                android:textSize="14sp"
+                android:textColor="#8fc9f7" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/appbar_second"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#262632" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_second"
+        android:layout_width="match_parent"
+        app:tabSelectedTextColor="@color/btn_pressed"
+        android:layout_height="wrap_content"
+        app:tabMode="scrollable"
+        app:tabIndicatorColor="@color/btn_pressed"
+        app:tabIndicatorFullWidth="false"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#262632" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_second"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

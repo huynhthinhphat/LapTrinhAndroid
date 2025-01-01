@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+
+    <include
+        layout="@layout/appbar"
+        />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TableRow
+            android:gravity="center">
+            <Button
+                android:id="@+id/btn_ly_thuyet"
+                style="@style/ButtonStyle"
+                android:layout_marginEnd="10dp"
+                android:text="@string/hoc_ly_thuyet"
+                android:drawableTop="@drawable/book"/>
+
+            <Button
+                android:id="@+id/btn_bien_bao"
+                style="@style/ButtonStyle"
+                android:layout_marginEnd="10dp"
+                android:text="@string/bien_bao"
+                android:drawableTop="@drawable/signs_post"/>
+
+            <Button
+                style="@style/ButtonStyle"
+                android:text="@string/thi_sat_hach"
+                android:drawableTop="@drawable/graduation"/>
+        </TableRow>
+
+        <TableRow
+            android:paddingTop="10dp"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btn_meo_thi"
+                style="@style/ButtonStyle"
+                android:layout_marginEnd="10dp"
+                android:text="@string/meo_thi"
+                android:drawableTop="@drawable/lightbulb"/>
+
+            <Button
+                style="@style/ButtonStyle"
+                android:layout_marginEnd="10dp"
+                android:text="@string/cac_cau_sai"
+                android:drawableTop="@drawable/clipboard"/>
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

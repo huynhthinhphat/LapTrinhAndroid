@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">GPLX Hạng A1</string>
+    <string name="hoc_ly_thuyet">Học lý thuyết</string>
+    <string name="bien_bao">Biển báo</string>
+    <string name="thi_sat_hach">Thi sát hạch</string>
+    <string name="meo_thi">Mẹo thi</string>
+    <string name="cac_cau_sai">Các câu sai</string>
+    <string name="setting">Setting</string>
+    <string name="back">Back</string>
+    <string name="meo_on_tap">Mẹo ôn tập lý thuyết GPLX</string>
+    <string name="cap_phep">Cấp phép</string>
+    <string name="nong_do_con">Nồng độ cồn</string>
+    <string name="khoang_cach">Khoảng cách an toàn tối thiểu</string>
+    <string name="hoi_ve_tuoi">Hỏi về tuổi (T)</string>
+    <string name="tren_duong_cao_toc">Trên đường cao tốc, trong đường hầm, đường vòng, đầu dốc, nơi tầm nhìn hạn chế</string>
+    <string name="giaonhau">Tại nơi giao nhau không có tín hiệu đèn</string>
+
+    <string name="nien_han">Niên hạn sử dụng (tính từ năm sx)</string>
+    <string name="bien_bao_cam">Biển báo cấm</string>
+    <string name="nhat_chom">Nhất chớm, nhì ưu, tam đường, tứ hướng</string>
+    <string name="thu_tu_uu_tien">Thứ tự ưu tiên với xe ưu tiên: Hỏa-Sự-An-Thương</string>
+    <string name="hang_gplx">Các hạng GPLX</string>
+    <string name="phan_nhom">Phân nhóm biển báo hiệu: bao gồm</string>
+    <string name="toc_do_toi_da_trong">Tốc độ tối đa TRONG khu vực đông dân cư</string>
+    <string name="toc_do_toi_da_ngoai">Tốc độ tối đa NGOÀI khu vực đông dân cư (trừ đường cao tốc)</string>
+    <string name="tang_giam_so">Tăng số, giảm số</string>
+    <string name="phuong_tien">Phương tiện giao thông đường bộ</string>
+
+    <string name="xe_may_chuyen_dung">Xe máy chuyên dùng</string>
+    <string name="nghiep_vu">Nghiệp vụ vận tải</string>
+    <string name="ky_thuat">Kỹ thuật lái xe</string>
+    <string name="ct_sc">Cấu tạo và sữa chữa</string>
+    <string name="quy_tac">Các quy tắc sa hình khác</string>
+    <string name="bien_hieu_lenh">Biển hiệu lệnh</string>
+    <string name="bien_chi_dan">Biển chỉ dẫn</string>
+    <string name="todo">TODO</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tab1_fragment">Biển báo cấm</string>
+    <string name="tab2_fragment">Biển hiệu lệnh</string>
+    <string name="tab3_fragment">Biển chỉ dẫn</string>
+    <string name="tab4_fragment">Biển báo nguy hiểm và cảnh báo</string>
+    <string name="tab5_fragment">Biển phụ</string>
+    <string name="bien_bao_giao_thong">Biển báo giao thông</string>
+    <string name="image">Image</string>
+    <string name="text">Text</string>
+    <string name="gello">gello</string>
+</resources>
