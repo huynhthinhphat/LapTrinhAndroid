@@ -35,13 +35,12 @@ public class SecondAdapter extends RecyclerView.Adapter<SecondAdapter.SecondView
     @Override
     public void onBindViewHolder(@NonNull SecondViewHolder holder, int position) {
         BienBaoGiaoThong bienBaoGiaoThong = list.get(position);
-        holder.title.setText(bienBaoGiaoThong.getName());  // Set tên biển báo
-        holder.description.setText(bienBaoGiaoThong.getContent());  // Set mô tả
+        holder.title.setText(bienBaoGiaoThong.getName());
+        holder.description.setText(bienBaoGiaoThong.getContent());
 
-        // Tải ảnh từ URL nếu URL hợp lệ
-        Glide.with(holder.itemView.getContext())  // Sử dụng context của từng item
+        Glide.with(holder.itemView.getContext())
                 .load(bienBaoGiaoThong.getImage())
-                .into(holder.image);  // Tải ảnh vào holder.image
+                .into(holder.image);
     }
 
     @Override

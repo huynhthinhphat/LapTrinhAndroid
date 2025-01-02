@@ -126,8 +126,6 @@ public class FifthActivity extends AppCompatActivity {
 
     private SpannableStringBuilder setUpText(String content){
 
-        // Tạo SpannableStringBuilder
-        // SpannableStringBuilder cho phép áp dụng các định dạng đặc biệt (như thêm ký hiệu •, đổi màu, thay đổi kích thước, v.v.) lên từng phần cụ thể trong chuỗi.
         SpannableStringBuilder spannable = new SpannableStringBuilder(content);
 
         String[] lines = content.split("\n");

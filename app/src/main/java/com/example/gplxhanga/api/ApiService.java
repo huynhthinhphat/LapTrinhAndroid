@@ -28,7 +28,7 @@ public interface ApiService {
             .create(ApiService.class);
 
     @GET("cauhoi")
-    Call<List<ItemQuestion>> findALlQuestion(@Query("questionType") String questionType);
+    Call<List<ItemQuestion>> findALlQuestion(@Query("questionType") int questionType);
 
     @GET("traffic_signs")
     Call<List<BienBaoGiaoThong>> findALlTrafficSigns();

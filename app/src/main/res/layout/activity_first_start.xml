@@ -17,11 +17,21 @@
         style="@style/Text_Ques_Ans"
         android:layout_below="@+id/toolbar"
         />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question"
+        android:contentDescription="@string/image"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"/>
+
     <RadioGroup
         android:id="@+id/groupAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/question">
+        android:layout_below="@+id/image">
 
         <RadioButton
             android:id="@+id/answerA"
@@ -57,7 +67,6 @@
             app:layout_constraintTop_toBottomOf="@+id/answerC"
             style="@style/Text_Ques_Ans"
             />
-
     </RadioGroup>
 
 
@@ -85,7 +94,7 @@
         android:id="@+id/rv_question_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/background_box"
+        android:background="@color/background"
         android:scrollbars="vertical"
         android:layout_alignParentBottom="true" />
 

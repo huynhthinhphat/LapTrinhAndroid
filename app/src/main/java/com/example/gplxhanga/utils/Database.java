@@ -1,4 +1,4 @@
-package com.example.gplxhanga.dao;
+package com.example.gplxhanga.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -34,7 +34,7 @@ public class Database extends SQLiteOpenHelper {
         String createLearn = "CREATE TABLE IF NOT EXISTS " + historyLearn +
                 "(Id_Question INTEGER PRIMARY KEY," +
                 "Answer_Select TEXT," +  // Cột Answer_Select cần có
-                "Typequestion TEXT)";
+                "Typequestion INTEGER)";
 
         String createTest = "CREATE TABLE IF NOT EXISTS "+ historyTest +
                 "(Id INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -139,15 +139,15 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<HistoryLearn> getLearn(String typequestion){
+    public List<HistoryLearn> getLearn(int typequestion){
         SQLiteDatabase db = getReadableDatabase();
         List<HistoryLearn> list = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM "+historyLearn+ " WHERE Typequestion = ?", new String[]{typequestion});
+        Cursor cursor = db.rawQuery("SELECT * FROM "+historyLearn+ " WHERE Typequestion = ?", new String[]{String.valueOf(typequestion)});
         while (cursor.moveToNext()){
             int idQuestion = cursor.getInt(0);
             String answerSelect = cursor.getString(1);
-            String typeQuestion = cursor.getString(2);
+            int typeQuestion = cursor.getInt(2);
 
             HistoryLearn htr = new HistoryLearn(idQuestion, answerSelect, typeQuestion);
             list.add(htr);
@@ -169,5 +169,10 @@ public class Database extends SQLiteOpenHelper {
         int count = db.delete(topictb, null, null);
         db.close();
         return count >= 0;
+    }
+    public void deleteLearnByType(int questiontype){
+        SQLiteDatabase db = getReadableDatabase();
+        db.delete(historyLearn, "Typequestion=?", new String[]{String.valueOf(questiontype)});
+        db.close();
     }
 }

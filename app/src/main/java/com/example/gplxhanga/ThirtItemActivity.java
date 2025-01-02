@@ -4,28 +4,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.gplxhanga.adapter.ListquestionAdapter;
 import com.example.gplxhanga.api.ApiService;
-import com.example.gplxhanga.dao.Database;
+import com.example.gplxhanga.utils.Database;
 import com.example.gplxhanga.entities.ItemQuestion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,18 +43,24 @@ public class ThirtItemActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private boolean shouldProceedBack = false;
     private int topic;
-    private List<ItemQuestion> list_question = new ArrayList<>();
+    private final List<ItemQuestion> list_question = new ArrayList<>();
     private TextView tvQuestion;
     private RadioGroup radioGroup;
     private RadioButton radioButtonA, radioButtonB, radioButtonC, radioButtonD;
     private ImageButton btnPrev, btnNext;
+    private ImageView imageQuestion;
     private Button btnSubmit;
     private int ques_number = 0;
-    private List<HashMap<String, String>> list_answer = new ArrayList<>();
+    private final List<HashMap<String, String>> list_answer = new ArrayList<>();
     private TextView questionCurrent;
     private int score = 0;
     private int cauLiet = 0;
     private int isPass = 3;
+    private RecyclerView recyclerView;
+    private ListquestionAdapter listquestionAdapter;
+    private ConstraintLayout btn_toolbar;
+    private boolean isToolbarMoved = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +74,7 @@ public class ThirtItemActivity extends AppCompatActivity {
         setUpBtn();
         getQuestion();
         saveAnswerTemp();
+        setPositionToolBarBottom();
     }
 
     private void getItent(){
@@ -75,6 +85,7 @@ public class ThirtItemActivity extends AppCompatActivity {
     public void init(){
         toolbar = findViewById(R.id.toolbarexam);
         setSupportActionBar(toolbar);
+        btn_toolbar = findViewById(R.id.btn_move_toolbar);
 
         toolbarbottom = findViewById(R.id.toolbarfirstitem);
         setSupportActionBar(toolbarbottom);
@@ -83,6 +94,7 @@ public class ThirtItemActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back_exam);
 
         tvQuestion = findViewById(R.id.question);
+        imageQuestion = findViewById(R.id.image);
         radioGroup = findViewById(R.id.groupAnswer);
         radioButtonA = findViewById(R.id.answerA);
         radioButtonB = findViewById(R.id.answerB);
@@ -94,18 +106,29 @@ public class ThirtItemActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btn_submit);
 
         questionCurrent = findViewById(R.id.socauhoi);
+
+        recyclerView = findViewById(R.id.recycler_view_number_question);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5);  // 7 columns
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        listquestionAdapter = new ListquestionAdapter(list_question, new ListquestionAdapter.itemClick() {
+            @Override
+            public void onClickItemQuestion(ItemQuestion item, int positions) {
+                ques_number = positions;
+                setQuestion(ques_number);
+                questionCurrent.setText(String.valueOf(ques_number+1)+"/25");
+            }
+        },ThirtItemActivity.this, "test" , list_answer);
+
+        recyclerView.setAdapter(listquestionAdapter);
     }
 
     private void startCountdown() {
-        // Thời gian bắt đầu (19 phút, chuyển sang milliseconds)
-        long startTime = 19 * 60 * 1000;  // 19 phút = 1140 giây = 1140000 milliseconds
+        long startTime = 19 * 60 * 1000;
 
-        // Tạo một CountDownTimer
-        new CountDownTimer(startTime, 1000) { // Mỗi 1 giây sẽ gọi onTick()
-
+        new CountDownTimer(startTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                // Cập nhật thời gian còn lại vào TextView
                 int minutes = (int) (millisUntilFinished / 1000) / 60;
                 int seconds = (int) (millisUntilFinished / 1000) % 60;
                 String timeLeft = String.format("%02d:%02d", minutes, seconds);
@@ -114,25 +137,29 @@ public class ThirtItemActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                new AlertDialog.Builder(this)
-                        .setTitle("Xác nhận")
-                        .setMessage("Bạn chưa làm xong. Bạn vẫn muốn nộp?")
-                        .setCancelable(false)
-                        .setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                submitExam();
-                                showResult();
-                            }
-                        })
-                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .show();
+                dialogHetGio();
             }
         }.start(); // Bắt đầu đếm ngược
+    }
+
+    private void dialogHetGio(){
+        new AlertDialog.Builder(this)
+                .setTitle("Xác nhận")
+                .setMessage("Hết giờ! Hãy nộp bài")
+                .setCancelable(false)
+                .setPositiveButton("Nộp bài", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        submitExam();
+                        showResult();
+                    }
+                })
+                .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
     }
 
     private void setUpBtn(){
@@ -192,7 +219,7 @@ public class ThirtItemActivity extends AppCompatActivity {
                 .setTitle("Xác nhận")
                 .setMessage("Nếu thoát bạn thì bài thi sẽ bị hủy?")
                 .setCancelable(false)
-                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         shouldProceedBack = true;
@@ -269,9 +296,6 @@ public class ThirtItemActivity extends AppCompatActivity {
                         Database dtb = new Database(ThirtItemActivity.this);
                         dtb.addTopicExam(list_answer, topic);
                         dtb.addTopicTB(score, topic, cauLiet, isPass);
-
-                        Intent intent = new Intent(ThirtItemActivity.this, ThirtActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 })
@@ -320,6 +344,10 @@ public class ThirtItemActivity extends AppCompatActivity {
     private void setQuestion(int position) {
         radioGroup.clearCheck();
 
+        Glide.with(this)
+                .load(list_question.get(position).getImageUrl())
+                .into(imageQuestion);
+
         String question = list_question.get(position).getQuestionText();
         tvQuestion.setText(question);
 
@@ -356,6 +384,7 @@ public class ThirtItemActivity extends AppCompatActivity {
                     String answer = radioButton.getText().toString();
                     saveDataTemp(tvQuestion.getText().toString(), answer);
                 }
+                listquestionAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -376,6 +405,37 @@ public class ThirtItemActivity extends AppCompatActivity {
             data.put("question", question);
             data.put("answer", answer);
             list_answer.add(data);
+        }
+    }
+    private void setPositionToolBarBottom() {
+        btn_toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Nếu RecyclerView chưa được hiển thị, thì hiển thị nó
+                if (!isToolbarMoved) {
+                    // Animate RecyclerView height from 0dp to wrap_content with maxHeight
+                    toggleRecyclerViewHeight();
+                } else {
+                    // Nếu RecyclerView đã hiển thị, ẩn nó
+                    toggleRecyclerViewHeight();
+                }
+                isToolbarMoved = !isToolbarMoved;
+            }
+        });
+    }
+    private void toggleRecyclerViewHeight() {
+        // Lấy LayoutParams hiện tại của RecyclerView
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) recyclerView.getLayoutParams();
+
+        // Kiểm tra chiều cao hiện tại của RecyclerView
+        if (layoutParams.height == RelativeLayout.LayoutParams.WRAP_CONTENT) {
+            // Nếu chiều cao hiện tại là wrap_content, thay đổi thành 0dp
+            layoutParams.height = 0;  // Set height to 0dp (0 pixels)
+            recyclerView.setLayoutParams(layoutParams);  // Cập nhật LayoutParams
+        } else {
+            // Nếu chiều cao hiện tại là 0dp, thay đổi thành wrap_content
+            layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+            recyclerView.setLayoutParams(layoutParams);  // Cập nhật LayoutParams
         }
     }
 }

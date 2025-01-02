@@ -3,9 +3,9 @@ package com.example.gplxhanga.entities;
 public class HistoryLearn {
     private int Id_Question;
     private String Answer_Select;
-    private String Typequestion;
+    private int Typequestion;
 
-    public HistoryLearn(int id_Question, String answer_Select, String typequestion) {
+    public HistoryLearn(int id_Question, String answer_Select, int typequestion) {
         Id_Question = id_Question;
         Answer_Select = answer_Select;
         Typequestion = typequestion;
@@ -27,11 +27,11 @@ public class HistoryLearn {
         Answer_Select = answer_Select;
     }
 
-    public String getTypequestion() {
+    public int getTypequestion() {
         return Typequestion;
     }
 
-    public void setTypequestion(String typequestion) {
+    public void setTypequestion(int typequestion) {
         Typequestion = typequestion;
     }
 }

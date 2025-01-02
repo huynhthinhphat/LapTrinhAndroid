@@ -27,19 +27,15 @@ public class Tab5Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tab5, container, false);
 
-        // Nhận Bundle và dữ liệu từ Activity
         Bundle bundle = getArguments();
         if (bundle != null) {
-            // Kiểm tra nếu dữ liệu tồn tại trong Bundle
             list = (List<BienBaoGiaoThong>) bundle.getSerializable("list_tab5");
 
             if (list != null) {
                 setupRecyclerView(rootView);
             } else {
-                // Dữ liệu không có trong Bundle
                 Toast.makeText(getContext(), "No data received", Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -50,13 +46,10 @@ public class Tab5Fragment extends Fragment {
     }
 
     private void setupRecyclerView(View rootView) {
-        // Tìm RecyclerView trong layout
         RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_second_5);
 
-        // Thiết lập LayoutManager
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Tạo Adapter và truyền dữ liệu
         SecondAdapter adapter = new SecondAdapter(list);
         recyclerView.setAdapter(adapter);
     }

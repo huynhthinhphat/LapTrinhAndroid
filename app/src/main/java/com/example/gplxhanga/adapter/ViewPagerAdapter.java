@@ -44,8 +44,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 fragment = new Tab1Fragment();
                 break;
         }
-
-        // Truyền Bundle vào Fragment
+        
         if (bundles != null && bundles.length > position && bundles[position] != null) {
             fragment.setArguments(bundles[position]);
         }

@@ -57,9 +57,6 @@ public class SecondActivity extends AppCompatActivity {
         mTabLayout = findViewById(R.id.tab_layout_second);
         mViewPager = findViewById(R.id.view_pager_second);
 
-        /*ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        mViewPager.setAdapter(viewPagerAdapter);*/
-
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
@@ -84,14 +81,13 @@ public class SecondActivity extends AppCompatActivity {
                 List<BienBaoGiaoThong> listTab5 = new ArrayList<>();
 
                 for (BienBaoGiaoThong item : response.body()) {
-                    // Thêm điều kiện cho từng loại biển báo
                     if (item.getSignType().trim().equals("Biển báo cấm")) {
                         listTab1.add(item);
-                    } else if (item.getSignType().trim().equals("Biển báo nguy hiểm")) {
+                    } else if (item.getSignType().trim().equals("Biển nguy hiểm")) {
                         listTab2.add(item);
-                    } else if (item.getSignType().trim().equals("Biển báo chỉ dẫn")) {
+                    } else if (item.getSignType().trim().equals("Biển chỉ dẫn")) {
                         listTab3.add(item);
-                    } else if (item.getSignType().trim().equals("Biển báo hiệu lệnh")) {
+                    } else if (item.getSignType().trim().equals("Biển hiệu lệnh")) {
                         listTab4.add(item);
                     } else {
                         listTab5.add(item);

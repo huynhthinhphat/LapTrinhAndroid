@@ -1,42 +1,28 @@
 package com.example.gplxhanga;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.gplxhanga.adapter.ListquestionAdapter;
 import com.example.gplxhanga.api.ApiService;
-import com.example.gplxhanga.dao.Database;
-import com.example.gplxhanga.entities.CauHoi;
+import com.example.gplxhanga.utils.Database;
 import com.example.gplxhanga.entities.HistoryLearn;
 import com.example.gplxhanga.entities.ItemQuestion;
 
@@ -57,6 +43,7 @@ public class FirstStartActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private ImageButton btnBack;
     private TextView tvquestion, tvqs, explanation;
+    private ImageView imageQuestion;
     private RadioButton answerA, answerB, answerC, answerD;
     private RadioGroup groupAnswer;
     private String answerTrue;
@@ -66,7 +53,8 @@ public class FirstStartActivity extends AppCompatActivity{
     private Database dtb;
     private ImageButton btnDelete;
 
-    private String typequestion, nametool;
+    private String  nametool;
+    private int typequestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +62,7 @@ public class FirstStartActivity extends AppCompatActivity{
         setContentView(R.layout.activity_first_start);
 
         Intent intentsecond = getIntent();
-        typequestion = intentsecond.getStringExtra("typequestion");
+        typequestion = intentsecond.getIntExtra("typequestion", -1);
         nametool = intentsecond.getStringExtra("toolbar");
 
         init();
@@ -102,6 +90,7 @@ public class FirstStartActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         btnBack = findViewById(R.id.btn_back_hlt);
         tvquestion = findViewById(R.id.question);
+        imageQuestion = findViewById(R.id.image);
 
 
         TextView nameToolbar = findViewById(R.id.toolbar_first_name);
@@ -115,7 +104,6 @@ public class FirstStartActivity extends AppCompatActivity{
         recyclerView.setLayoutManager(gridLayoutManager);
         list = new ArrayList<>();
 
-        // Initialize the adapter and pass the list
         listquestionAdapter = new ListquestionAdapter(list, new ListquestionAdapter.itemClick() {
             @Override
             public void onClickItemQuestion(ItemQuestion item, int positions) {
@@ -124,7 +112,7 @@ public class FirstStartActivity extends AppCompatActivity{
                 groupAnswer.clearCheck();
                 getitem(item, position);
             }
-        },FirstStartActivity.this);
+        },FirstStartActivity.this, "learn", new ArrayList<>());
 
         recyclerView.setAdapter(listquestionAdapter);  // Set the adapter to RecyclerView
     }
@@ -132,11 +120,11 @@ public class FirstStartActivity extends AppCompatActivity{
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                finish();
             }
         });
     }
-    private void callapi(String typequestion) {
+    private void callapi(int typequestion) {
         ApiService.apiService.findALlQuestion(typequestion).enqueue(new Callback<List<ItemQuestion>>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
@@ -145,12 +133,11 @@ public class FirstStartActivity extends AppCompatActivity{
                     for (ItemQuestion cauhoi : response.body()) {
                         list.add(cauhoi);
                     }
-                    listquestionAdapter.notifyDataSetChanged();  // Notify adapter after data is loaded
+                    listquestionAdapter.notifyDataSetChanged();
 
-                    // Gọi getitem() với câu hỏi đầu tiên (vị trí 0) sau khi dữ liệu đã được tải
                     if (!list.isEmpty()) {
-                        getitem(list.get(0), 0);  // Hiển thị câu hỏi đầu tiên
-                        tvqs.setText("1/" + list.size());  // Hiển thị số câu hỏi hiện tại
+                        getitem(list.get(0), 0);
+                        tvqs.setText("1/" + list.size());
                     }
                 } else {
                     Toast.makeText(FirstStartActivity.this, "No data received", Toast.LENGTH_SHORT).show();
@@ -164,9 +151,7 @@ public class FirstStartActivity extends AppCompatActivity{
         });
     }
 
-
     private void nextandback(){
-
             btnleft.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -181,7 +166,6 @@ public class FirstStartActivity extends AppCompatActivity{
                    }
                 }
             });
-
 
             btnright.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -202,23 +186,26 @@ public class FirstStartActivity extends AppCompatActivity{
     private void getitem(ItemQuestion itemQuestion, int positions) {
         itemQS = itemQuestion;
         boolean foundAnswer = false;
-        List<HistoryLearn> listhtr = dtb.getLearn("1");
+        List<HistoryLearn> listhtr = dtb.getLearn(itemQuestion.getQuestionType());
         tvquestion.setText(itemQuestion.getQuestionText());
+
+        Glide.with(this)
+                .load(itemQuestion.getImageUrl())
+                .into(imageQuestion);
+
         answerA.setText(itemQuestion.getOption1());
         answerB.setText(itemQuestion.getOption2());
         answerC.setText(itemQuestion.getOption3());
         explanation.setText(itemQuestion.getExplanation());
         answerTrue = itemQuestion.getCorrectAnswer();
 
-        // Kiểm tra số lượng đáp án và ẩn các RadioButton thừa
         if (itemQuestion.getOption4() == null) {
-            answerD.setVisibility(View.GONE);  // Ẩn RadioButton D nếu không có đáp án thứ 4
+            answerD.setVisibility(View.GONE);
         } else {
-            answerD.setVisibility(View.VISIBLE);  // Hiển thị RadioButton D nếu có đáp án thứ 4
+            answerD.setVisibility(View.VISIBLE);
             answerD.setText(itemQuestion.getOption4());
         }
 
-        // Kiểm tra xem câu hỏi này đã được học chưa và chọn đáp án đã chọn (nếu có)
         for (int i = 0; i < listhtr.size(); i++) {
             HistoryLearn htrlearn = listhtr.get(i);
             String answerhtr = htrlearn.getAnswer_Select();
@@ -292,12 +279,9 @@ public class FirstStartActivity extends AppCompatActivity{
         btn_toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Nếu RecyclerView chưa được hiển thị, thì hiển thị nó
                 if (!isToolbarMoved) {
-                    // Animate RecyclerView height from 0dp to wrap_content with maxHeight
                     toggleRecyclerViewHeight();
                 } else {
-                    // Nếu RecyclerView đã hiển thị, ẩn nó
                     toggleRecyclerViewHeight();
                 }
                 isToolbarMoved = !isToolbarMoved;
@@ -305,18 +289,13 @@ public class FirstStartActivity extends AppCompatActivity{
         });
     }
     private void toggleRecyclerViewHeight() {
-        // Lấy LayoutParams hiện tại của RecyclerView
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) recyclerView.getLayoutParams();
 
-        // Kiểm tra chiều cao hiện tại của RecyclerView
         if (layoutParams.height == RelativeLayout.LayoutParams.WRAP_CONTENT) {
-            // Nếu chiều cao hiện tại là wrap_content, thay đổi thành 0dp
-            layoutParams.height = 0;  // Set height to 0dp (0 pixels)
-            recyclerView.setLayoutParams(layoutParams);  // Cập nhật LayoutParams
+            layoutParams.height = 0;
         } else {
-            // Nếu chiều cao hiện tại là 0dp, thay đổi thành wrap_content
             layoutParams.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
-            recyclerView.setLayoutParams(layoutParams);  // Cập nhật LayoutParams
+            recyclerView.setLayoutParams(layoutParams);
         }
     }
 

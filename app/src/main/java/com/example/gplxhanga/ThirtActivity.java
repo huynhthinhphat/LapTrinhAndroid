@@ -1,23 +1,19 @@
 package com.example.gplxhanga;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.gplxhanga.adapter.ItemTestAdapter;
-import com.example.gplxhanga.dao.Database;
+import com.example.gplxhanga.utils.Database;
 import com.example.gplxhanga.entities.ItemTopic;
 
 import java.util.ArrayList;
@@ -39,7 +35,6 @@ public class ThirtActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thirt);
         init();
-        setListView();
         setUpBtn();
     }
 

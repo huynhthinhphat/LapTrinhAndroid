@@ -35,11 +35,11 @@
                 android:text="@string/bien_bao"
                 android:drawableTop="@drawable/signs_post"/>
 
-            <Button
-                style="@style/ButtonStyle"
-                android:id="@+id/btn_thi"
-                android:text="@string/thi_sat_hach"
-                android:drawableTop="@drawable/graduation"/>
+<!--            <Button-->
+<!--                style="@style/ButtonStyle"-->
+<!--                android:id="@+id/btn_thi"-->
+<!--                android:text="@string/thi_sat_hach"-->
+<!--                android:drawableTop="@drawable/graduation"/>-->
         </TableRow>
 
         <TableRow
@@ -54,11 +54,19 @@
 
             <Button
                 style="@style/ButtonStyle"
-                android:id="@+id/btn_cau_sai"
+                android:id="@+id/btn_thi"
                 android:layout_marginEnd="10dp"
-                android:text="@string/cac_cau_sai"
-                android:drawableTop="@drawable/clipboard"/>
+                android:text="@string/thi_sat_hach"
+                android:drawableTop="@drawable/graduation"/>
         </TableRow>
     </TableLayout>
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
