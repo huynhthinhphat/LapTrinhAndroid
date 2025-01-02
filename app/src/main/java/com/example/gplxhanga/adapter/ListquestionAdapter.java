@@ -1,4 +1,6 @@
 package com.example.gplxhanga.adapter;
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -6,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.gplxhanga.R;
+import com.example.gplxhanga.dao.Database;
+import com.example.gplxhanga.entities.HistoryLearn;
 import com.example.gplxhanga.entities.Item;
 import com.example.gplxhanga.entities.ItemQuestion;
 import java.util.List;
@@ -13,14 +17,16 @@ public class ListquestionAdapter extends RecyclerView.Adapter<ListquestionAdapte
 
     private List<ItemQuestion> list;
     private itemClick clickitem;
+    private Database dtb;
 
     public interface itemClick{
         void onClickItemQuestion(ItemQuestion item, int positions);
     }
 
-    public ListquestionAdapter(List<ItemQuestion> list, itemClick clickitem) {
+    public ListquestionAdapter(List<ItemQuestion> list, itemClick clickitem, Context context) {
         this.list = list;
         this.clickitem = clickitem;
+        dtb = new Database(context);
     }
 
     @NonNull
@@ -33,18 +39,31 @@ public class ListquestionAdapter extends RecyclerView.Adapter<ListquestionAdapte
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         ItemQuestion item = list.get(position);
-
+        List<HistoryLearn> htrlearn = dtb.getLearn("1");
         int i = position;
         if(item == null){
             return;
         }
-            holder.tv.setText(String.valueOf(position+1));
-            holder.tv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    clickitem.onClickItemQuestion(item,i );
+        for(HistoryLearn htrl : htrlearn){
+            if(htrl.getId_Question() == item.getId()){
+                if ( htrl.getAnswer_Select().equals(item.getCorrectAnswer())){
+                    holder.tv.setBackgroundColor(Color.GREEN);
                 }
-            });
+                else{
+                    holder.tv.setBackgroundColor(Color.RED);
+                }
+
+
+            }
+
+        }
+        holder.tv.setText(String.valueOf(position+1));
+        holder.tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickitem.onClickItemQuestion(item,i );
+            }
+        });
 
     }
 

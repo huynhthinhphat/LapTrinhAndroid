@@ -37,6 +37,7 @@
 
             <Button
                 style="@style/ButtonStyle"
+                android:id="@+id/btn_thi"
                 android:text="@string/thi_sat_hach"
                 android:drawableTop="@drawable/graduation"/>
         </TableRow>
@@ -53,6 +54,7 @@
 
             <Button
                 style="@style/ButtonStyle"
+                android:id="@+id/btn_cau_sai"
                 android:layout_marginEnd="10dp"
                 android:text="@string/cac_cau_sai"
                 android:drawableTop="@drawable/clipboard"/>

@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gplxhanga.api.ApiService;
+import com.example.gplxhanga.dao.Database;
 import com.example.gplxhanga.entities.CauHoi;
 
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLyThuyet;
     private Button btnMeoThi;
     private Button btnBienBao;
+    private Button btnCauSai;
+    private Button btnThiSatHach;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         btnMeoThi = findViewById(R.id.btn_meo_thi);
         btnLyThuyet = findViewById(R.id.btn_ly_thuyet);
         btnBienBao = findViewById(R.id.btn_bien_bao);
+        btnCauSai = findViewById(R.id.btn_cau_sai);
+        btnThiSatHach = findViewById(R.id.btn_thi);
     }
 
     private void setUpBtn(){
@@ -89,23 +92,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
 
-    /*private void btnLyThuyetr_CallApi(){
-        ApiService.apiService.findALlQuestion().enqueue(new Callback<List<CauHoi>>() {
+        btnThiSatHach.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(@NonNull Call<List<CauHoi>> call, @NonNull Response<List<CauHoi>> response) {
-                Toast.makeText(MainActivity.this, "Call thành công", Toast.LENGTH_SHORT).show();
-                assert response.body() != null;
-                for(CauHoi cauhoi: response.body()){
-                    Log.d("MainActivity", String.valueOf(cauhoi.getMaCauHoi()) + " " + cauhoi.getCauHoi() + " " + cauhoi.getLoaiCauHoi());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<CauHoi>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Sửa lại địa chỉ ip tao ghi trong ApiService đi", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ThirtActivity.class);
+                startActivity(intent);
             }
         });
-    }*/
+    }
 }

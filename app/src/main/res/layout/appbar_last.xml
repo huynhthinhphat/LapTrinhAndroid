@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/actionBarSize"
     android:background="@color/background"
-    android:id="@+id/toolbarfirst"
+    android:id="@+id/toolbarlast"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     app:contentInsetStart="0dp">
 
@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/btn_back_hlt"
+            android:id="@+id/btn_back_causai"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/back"
@@ -28,7 +28,7 @@
             android:id="@+id/toolbar_first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hoc_ly_thuyet"
+            android:text="@string/cac_cau_sai"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/white"
@@ -38,7 +38,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageButton
-            android:id="@+id/btn_delete_hlt"
+            android:id="@+id/btn_delete_cau_sai"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/back"

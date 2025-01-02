@@ -45,4 +45,6 @@
     <string name="image">Image</string>
     <string name="text">Text</string>
     <string name="gello">gello</string>
+    <string name="gthich">Giải thích:</string>
+    <string name="nopbai">Nộp bài</string>
 </resources>

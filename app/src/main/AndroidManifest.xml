@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,8 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".ActivityTest"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -24,31 +28,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".FirstActivity"
-            android:label="First Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true"
+            android:label="First Activity">
 
+        </activity>
         <activity
             android:name=".SecondActivity"
-            android:label="Second Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true"
+            android:label="Second Activity">
 
+        </activity>
         <activity
             android:name=".FifthActivity"
-            android:label="Fifth Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true"
+            android:label="Fifth Activity">
 
+        </activity>
         <activity
             android:name=".FirstStartActivity"
-            android:label="First Start Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true"
+            android:label="First Start Activity">
 
+        </activity>
+        <activity
+            android:name=".ThirtActivity"
+            android:exported="true"
+            android:label="Thirt Activity">
+        </activity>
+        <activity
+            android:name=".ThirtItemActivity"
+            android:exported="true"
+            android:label="Thirt Item Activity">
+        </activity>
     </application>
 
 </manifest>

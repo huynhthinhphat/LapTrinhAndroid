@@ -19,10 +19,10 @@ public interface ApiService {
     ApiService apiService = new Retrofit
             .Builder()
             //chạy trên android emulation
-            .baseUrl("http://10.0.2.2:8080/")
+            //.baseUrl("http://10.0.2.2:8080/")
             //chạy trên máy thực thì lấy ip của máy
             // cmd -> ipconfig -> chọn cổng IPv4 Address
-            //.baseUrl("http://192.168.203.66:8080/")
+            .baseUrl("http://192.168.203.66:8080/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
@@ -32,4 +32,7 @@ public interface ApiService {
 
     @GET("traffic_signs")
     Call<List<BienBaoGiaoThong>> findALlTrafficSigns();
+
+    @GET("cauhoi/topic")
+    Call<List<ItemQuestion>> findALlQuestionByTopic(@Query("topic") int topic);
 }

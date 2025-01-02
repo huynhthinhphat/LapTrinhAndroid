@@ -64,15 +64,21 @@ public class FirstStartActivity extends AppCompatActivity{
     private ImageButton btnleft, btnright;
     private ItemQuestion itemQS;
     private Database dtb;
+    private ImageButton btnDelete;
 
-
+    private String typequestion, nametool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_start);
+
+        Intent intentsecond = getIntent();
+        typequestion = intentsecond.getStringExtra("typequestion");
+        nametool = intentsecond.getStringExtra("toolbar");
+
         init();
-        callapi();  // Call API after initializing the adapter
+        callapi(typequestion);
         nextandback();
         changebtn();
         setUpBtn();
@@ -97,6 +103,13 @@ public class FirstStartActivity extends AppCompatActivity{
         btnBack = findViewById(R.id.btn_back_hlt);
         tvquestion = findViewById(R.id.question);
 
+
+        TextView nameToolbar = findViewById(R.id.toolbar_first_name);
+        nameToolbar.setText(""+nametool);
+
+        btnDelete = findViewById(R.id.btn_delete_hlt);
+        btnDelete.setVisibility(View.GONE);
+
         // Set up the RecyclerView with GridLayoutManager
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 7);  // 7 columns
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -108,9 +121,10 @@ public class FirstStartActivity extends AppCompatActivity{
             public void onClickItemQuestion(ItemQuestion item, int positions) {
                 position = positions;
                 tvqs.setText(String.valueOf(position + 1) + "/" + list.size());
+                groupAnswer.clearCheck();
                 getitem(item, position);
             }
-        });
+        },FirstStartActivity.this);
 
         recyclerView.setAdapter(listquestionAdapter);  // Set the adapter to RecyclerView
     }
@@ -122,17 +136,22 @@ public class FirstStartActivity extends AppCompatActivity{
             }
         });
     }
-    private void callapi() {
-        ApiService.apiService.findALlQuestion("1").enqueue(new Callback<List<ItemQuestion>>() {
+    private void callapi(String typequestion) {
+        ApiService.apiService.findALlQuestion(typequestion).enqueue(new Callback<List<ItemQuestion>>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(Call<List<ItemQuestion>> call, Response<List<ItemQuestion>> response) {
                 if (response.body() != null) {
                     for (ItemQuestion cauhoi : response.body()) {
-                            list.add(cauhoi);
-
+                        list.add(cauhoi);
                     }
                     listquestionAdapter.notifyDataSetChanged();  // Notify adapter after data is loaded
+
+                    // Gọi getitem() với câu hỏi đầu tiên (vị trí 0) sau khi dữ liệu đã được tải
+                    if (!list.isEmpty()) {
+                        getitem(list.get(0), 0);  // Hiển thị câu hỏi đầu tiên
+                        tvqs.setText("1/" + list.size());  // Hiển thị số câu hỏi hiện tại
+                    }
                 } else {
                     Toast.makeText(FirstStartActivity.this, "No data received", Toast.LENGTH_SHORT).show();
                 }
@@ -145,6 +164,7 @@ public class FirstStartActivity extends AppCompatActivity{
         });
     }
 
+
     private void nextandback(){
 
             btnleft.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +172,7 @@ public class FirstStartActivity extends AppCompatActivity{
                 public void onClick(View view) {
                    if(position>0){
                        position--;
+                       groupAnswer.clearCheck();
                        getitem(listquestionAdapter.getItem(position),position);
                        tvqs.setText(String.valueOf(position+1)+"/"+list.size());
                    }
@@ -167,6 +188,7 @@ public class FirstStartActivity extends AppCompatActivity{
                 public void onClick(View view) {
                     if(position<list.size()-1){
                         position++;
+                        groupAnswer.clearCheck();
                         getitem(listquestionAdapter.getItem(position),position);
                         tvqs.setText(String.valueOf(position+1)+"/"+list.size());
                     }
@@ -185,42 +207,45 @@ public class FirstStartActivity extends AppCompatActivity{
         answerA.setText(itemQuestion.getOption1());
         answerB.setText(itemQuestion.getOption2());
         answerC.setText(itemQuestion.getOption3());
-        if(itemQuestion.getOption4()!=null){
+        explanation.setText(itemQuestion.getExplanation());
+        answerTrue = itemQuestion.getCorrectAnswer();
+
+        // Kiểm tra số lượng đáp án và ẩn các RadioButton thừa
+        if (itemQuestion.getOption4() == null) {
+            answerD.setVisibility(View.GONE);  // Ẩn RadioButton D nếu không có đáp án thứ 4
+        } else {
+            answerD.setVisibility(View.VISIBLE);  // Hiển thị RadioButton D nếu có đáp án thứ 4
             answerD.setText(itemQuestion.getOption4());
         }
 
-        explanation.setText(itemQuestion.getExplanation());
-        answerTrue = itemQuestion.getCorrectAnswer();
-        for(int i = 0;i<listhtr.size();i++){
+        // Kiểm tra xem câu hỏi này đã được học chưa và chọn đáp án đã chọn (nếu có)
+        for (int i = 0; i < listhtr.size(); i++) {
             HistoryLearn htrlearn = listhtr.get(i);
             String answerhtr = htrlearn.getAnswer_Select();
-            if(itemQuestion.getId()==htrlearn.getId_Question()){
+            if (itemQuestion.getId() == htrlearn.getId_Question()) {
                 foundAnswer = true;
-               if(answerA.getText().toString().trim().equals(answerhtr.trim())){
-                   answerA.setChecked(true);
-                   checkandsetcolor(answerTrue,answerA);
-               }
-               else if(answerB.getText().toString().trim().equals(answerhtr.trim())){
-                   answerB.setChecked(true);
-                   checkandsetcolor(answerTrue,answerB);
-               }
-               else  if(answerC.getText().toString().trim().equals(answerhtr.trim())){
-                   answerC.setChecked(true);
-                   checkandsetcolor(answerTrue,answerC);
-               }
-               else  if(answerD.getText().toString().trim().equals(answerhtr.trim())){
-                   answerD.setChecked(true);
-                   checkandsetcolor(answerTrue,answerD);
-               }
+                if (answerA.getText().toString().trim().equals(answerhtr.trim())) {
+                    answerA.setChecked(true);
+                    checkandsetcolor(answerTrue, answerA);
+                } else if (answerB.getText().toString().trim().equals(answerhtr.trim())) {
+                    answerB.setChecked(true);
+                    checkandsetcolor(answerTrue, answerB);
+                } else if (answerC.getText().toString().trim().equals(answerhtr.trim())) {
+                    answerC.setChecked(true);
+                    checkandsetcolor(answerTrue, answerC);
+                } else if (answerD.getText().toString().trim().equals(answerhtr.trim())) {
+                    answerD.setChecked(true);
+                    checkandsetcolor(answerTrue, answerD);
+                }
             }
         }
+
         if (!foundAnswer) {
-            groupAnswer.clearCheck();
+
             setColorText(-1);
         }
-
-
     }
+
     private void changebtn(){
         groupAnswer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -234,6 +259,7 @@ public class FirstStartActivity extends AppCompatActivity{
                 }else {
                     explanation.setVisibility(View.GONE);
                 }
+                listquestionAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -293,5 +319,7 @@ public class FirstStartActivity extends AppCompatActivity{
             recyclerView.setLayoutParams(layoutParams);  // Cập nhật LayoutParams
         }
     }
+
+
 }
 

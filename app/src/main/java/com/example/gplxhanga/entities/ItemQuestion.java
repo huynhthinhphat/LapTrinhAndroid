@@ -16,12 +16,13 @@ public class ItemQuestion implements Serializable {
 
     private String correctAnswer; // Lựa chọn đúng (1, 2, 3, hoặc 4)
 
-    private String questionType; // Loại câu hỏi
+    private int questionType; // Loại câu hỏi
     private String explanation; // Giải thích
 
     private String imageUrl;
+    private int topic;
 
-    public ItemQuestion( String questionText, String option1, String option2, String option3, String option4, String correctAnswer, String questionType, String explanation, String imageUrl) {
+    public ItemQuestion(String questionText, String option1, String option2, String option3, String option4, String correctAnswer, int questionType, String explanation, String imageUrl, int topic) {
 
         this.questionText = questionText;
         this.option1 = option1;
@@ -32,6 +33,7 @@ public class ItemQuestion implements Serializable {
         this.questionType = questionType;
         this.explanation = explanation;
         this.imageUrl = imageUrl;
+        this.topic = topic;
     }
 
     public String getImageUrl() {
@@ -99,11 +101,11 @@ public class ItemQuestion implements Serializable {
         this.correctAnswer = correctAnswer;
     }
 
-    public String getQuestionType() {
+    public int getQuestionType() {
         return questionType;
     }
 
-    public void setQuestionType(String questionType) {
+    public void setQuestionType(int questionType) {
         this.questionType = questionType;
     }
 
@@ -113,5 +115,13 @@ public class ItemQuestion implements Serializable {
 
     public void setExplanation(String explanation) {
         this.explanation = explanation;
+    }
+
+    public int getTopic() {
+        return topic;
+    }
+
+    public void setTopic(int topic) {
+        this.topic = topic;
     }
 }
